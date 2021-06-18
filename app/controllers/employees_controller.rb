@@ -4,6 +4,6 @@ class EmployeesController < ApplicationController
   def index
     @fulfillable_orders = Order.fulfillable.limit(10)
     @recent_orders = Order.recent.limit(10)
-    @products = Product.all
+    @products = Product.order(id: :asc).all
   end
 end
