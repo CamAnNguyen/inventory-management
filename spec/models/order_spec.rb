@@ -4,13 +4,15 @@ RSpec.describe Order do
   let(:product) { create(:product) }
   let(:second_product) { create(:product) }
   let(:address) { create(:address) }
-  let(:order_line_item) do
-    create(:order_line_item, product: product, quantity: 2)
+  let(:order) do
+    create(
+      :order,
+      line_items: [
+        build(:order_line_item, product: product, quantity: 2),
+        build(:order_line_item, product: second_product, quantity: 3)
+      ]
+    )
   end
-  let(:second_order_line_item) do
-    create(:order_line_item, product: product, quantity: 3)
-  end
-  let(:order) { create(:order, line_items: []) }
   let(:second_order) do
     create(
       :order,
@@ -27,7 +29,9 @@ RSpec.describe Order do
   before do
     ReceiveProduct.run(employee, product, quantity)
     ReceiveProduct.run(employee, second_product, quantity)
+
     product.reload
+    second_product.reload
   end
 
   describe '.fulfillable' do

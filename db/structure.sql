@@ -241,21 +241,9 @@ CREATE TABLE public.products (
     price_cents integer DEFAULT 0 NOT NULL,
     price_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    on_shelf integer DEFAULT 0 NOT NULL
 );
-
-
---
--- Name: product_on_shelf_quantities; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW public.product_on_shelf_quantities AS
- SELECT p.id AS product_id,
-    count(i.product_id) AS quantity
-   FROM (public.products p
-     LEFT JOIN public.inventories i ON (((p.id = i.product_id) AND (i.status = 'on_shelf'::public.inventory_statuses))))
-  GROUP BY p.id
-  ORDER BY p.id;
 
 
 --
@@ -540,6 +528,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200908151850'),
 ('20200908224208'),
 ('20200909133724'),
-('20200916154424');
+('20200916154424'),
+('20210617134042'),
+('20210618045952');
 
 

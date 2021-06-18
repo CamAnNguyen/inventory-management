@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'counter_culture', '~> 2.8'
 gem 'i18n-tasks'
 gem 'money-rails'
 gem 'pg', '>= 0.18', '< 2.0'
