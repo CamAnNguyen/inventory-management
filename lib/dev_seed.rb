@@ -77,7 +77,7 @@ class DevSeed
 
   def create_employees
     EMPLOYEES.each do |name, access_code|
-      Employee.create!(name: name, access_code: access_code)
+      WarehouseEmployee.create!(name: name, access_code: access_code)
     end
   end
 

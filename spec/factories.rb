@@ -22,6 +22,12 @@ FactoryBot.define do
     sequence(:access_code) { |n| format('%05d', n) }
   end
 
+  factory :warehouse_employee, parent: :employee, class: 'WarehouseEmployee' do
+  end
+
+  factory :customer_service_employee, parent: :employee, class: 'CustomerServiceEmployee' do
+  end
+
   factory :product do
     sequence(:name) { |n| "Product #{n}" }
     price factory: :amount

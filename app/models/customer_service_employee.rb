@@ -1,0 +1,2 @@
+class CustomerServiceEmployee < Employee
+end

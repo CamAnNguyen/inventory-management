@@ -1,0 +1,2 @@
+class WarehouseEmployee < Employee
+end
