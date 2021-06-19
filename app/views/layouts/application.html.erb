@@ -31,6 +31,7 @@
               <%= link_to t(".portal"), employees_path, class: 'mr-2' %>
               <%= link_to t(".sign_out"), sign_out_path, method: :delete %>
             <% else %>
+              <%= link_to t(".sign_up"), sign_up_path, class: 'mr-4'  %>
               <%= link_to t(".sign_in"), sign_in_path %>
             <% end %>
           <% end %>

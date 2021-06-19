@@ -21,11 +21,17 @@ en:
         quantity: Quantity
       session:
         access_code: Enter your access code
+      registration:
+        name: Enter your name
+        access_code: Enter your access code
+        role: Please choose your role
     submit:
       receive_product:
         submit: Receive
       session:
         submit: Sign in
+      registration:
+        submit: Sign up
   layouts:
     application:
       page_title: Inventory Management
