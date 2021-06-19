@@ -78,7 +78,8 @@ CREATE TABLE public.employees (
     name character varying NOT NULL,
     access_code character varying(5) NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    role character varying
 );
 
 
@@ -530,6 +531,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200909133724'),
 ('20200916154424'),
 ('20210617134042'),
-('20210618045952');
+('20210618045952'),
+('20210619051717');
 
 
