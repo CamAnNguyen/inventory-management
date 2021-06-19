@@ -79,7 +79,7 @@ CREATE TABLE public.employees (
     access_code character varying(5) NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    role character varying
+    role character varying DEFAULT 'WarehouseEmployee'::character varying
 );
 
 
@@ -532,6 +532,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200916154424'),
 ('20210617134042'),
 ('20210618045952'),
-('20210619051717');
+('20210619051717'),
+('20210619075525');
 
 
