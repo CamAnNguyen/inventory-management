@@ -15,7 +15,8 @@ SET row_security = off;
 
 CREATE TYPE public.inventory_statuses AS ENUM (
     'on_shelf',
-    'shipped'
+    'shipped',
+    'returned'
 );
 
 
@@ -533,6 +534,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210617134042'),
 ('20210618045952'),
 ('20210619051717'),
-('20210619075525');
+('20210619075525'),
+('20210619123625');
 
 
