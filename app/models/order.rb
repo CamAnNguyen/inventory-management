@@ -32,6 +32,12 @@ class Order < ApplicationRecord
     inventories.any?
   end
 
+  # This method should include one more condition: not_fulfilled (`!fulfilled?`)
+  # Potential bug:
+  #   If this method is used for individual order fulfillable checking
+  #   it might cause additional inventories created
+  #
+  # In addition, seems this method is having N+1 queries problem?
   def fulfillable?
     line_items.all?(&:fulfillable?)
   end
