@@ -9,10 +9,7 @@
     <%= form.label :role, class: 'font-semibold mb-1 block' %>
     <%=
       form.select :role,
-        options_for_select([
-          ["Warehouse Employee", "WarehouseEmployee"],
-          ["Customer Service Employee", "CustomerServiceEmployee"]
-        ]),
+        options_for_select(@roles),
         {}, 
         { class: 'border appearance-none shadow w-full p-2 mb-4 text-center' }
     %>

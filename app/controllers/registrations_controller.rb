@@ -1,5 +1,8 @@
 class RegistrationsController < ApplicationController
   def new
+    @roles = Employee.descendants.map do |klass|
+      [klass.to_s.underscore.humanize.titleize, klass.to_s]
+    end
   end
 
   def create
