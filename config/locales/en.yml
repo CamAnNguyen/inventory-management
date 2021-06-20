@@ -14,30 +14,31 @@ en:
       recent_orders:
         header: Recent Orders
       title: Employee Portal
-      welcome: Welcome, %{name}
+      welcome: Welcome, %{name} - %{role}
   helpers:
     label:
       receive_product:
         quantity: Quantity
+      registration:
+        access_code: Enter your access code
+        name: Enter your name
+        role: Please choose your role
       session:
         access_code: Enter your access code
-      registration:
-        name: Enter your name
-        access_code: Enter your access code
-        role: Please choose your role
     submit:
       receive_product:
         submit: Receive
-      session:
-        submit: Sign in
       registration:
         submit: Sign up
+      session:
+        submit: Sign in
   layouts:
     application:
       page_title: Inventory Management
       portal: Portal
       sign_in: Sign in
       sign_out: Sign out
+      sign_up: Sign up
   order:
     fulfillable: Fulfillable
     fulfilled: Fulfilled

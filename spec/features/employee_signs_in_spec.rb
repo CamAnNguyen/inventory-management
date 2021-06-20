@@ -13,7 +13,7 @@ RSpec.feature 'Employee signs in' do
     attempt_code('41315')
 
     expect(page).to display_employee_portal
-    expect(page).to welcome_employee('Jane Doe')
+    expect(page).to welcome_employee('Jane Doe', 'Warehouse Employee')
   end
 
   scenario 'and then signs out' do
@@ -49,7 +49,7 @@ RSpec.feature 'Employee signs in' do
     have_css('.employees__header', text: t('employees.index.title'))
   end
 
-  def welcome_employee(name)
-    have_css('.employees__welcome', text: t('employees.index.welcome', name: name))
+  def welcome_employee(name, role)
+    have_css('.employees__welcome', text: t('employees.index.welcome', name: name, role: role))
   end
 end
