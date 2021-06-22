@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class DevSeed
   ORDER_COUNT = 200
   ADDRESS_COUNT = 30
@@ -23,6 +24,8 @@ class DevSeed
     'Rafi Yousef' => '10004',
     'Erin McDonnell' => '10005'
   }.freeze
+
+  CS_EMPLOYEES = { 'An Nguyen' => '10006' }.freeze
 
   def self.run
     new.run
@@ -79,6 +82,10 @@ class DevSeed
     EMPLOYEES.each do |name, access_code|
       WarehouseEmployee.create!(name: name, access_code: access_code)
     end
+
+    CS_EMPLOYEES.each do |name, access_code|
+      CustomerServiceEmployee.create!(name: name, access_code: access_code)
+    end
   end
 
   def create_inventory
@@ -117,3 +124,4 @@ class DevSeed
     (rand(MAXIMUM_LINE_ITEMS_PER_ORDER) + 1).times.map { random_product }.uniq
   end
 end
+# rubocop:enable Metrics/ClassLength
