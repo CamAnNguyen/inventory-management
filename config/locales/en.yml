@@ -4,6 +4,10 @@ en:
     index:
       fulfillable_orders:
         header: Fulfillable Orders
+      fulfilled_orders:
+        header: Fulfilled Orders
+      returned_orders:
+        header: Returned Orders
       receive_product:
         header: Receive New Product
         table:
@@ -42,13 +46,16 @@ en:
   order:
     fulfillable: Fulfillable
     fulfilled: Fulfilled
+    returned: Returned
     unfulfillable: Unfulfillable
   orders:
     show:
       fulfill_order: Fulfill order
+      mark_order_returned: Mark order returned
       order:
         fulfilled: Order has been fulfilled
         header: 'Order ID #%{id}'
+        returned: Order has been returned
       product_table:
         on_shelf: "%{count} on shelf"
         order_total: Order total

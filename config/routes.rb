@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :employees, only: :index
   resources :orders, only: :show do
     resource :fulfill, only: [:create]
+    resource :return, only: [:create]
   end
 
   resources :products do

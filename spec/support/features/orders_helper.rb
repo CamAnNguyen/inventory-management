@@ -11,6 +11,10 @@ module OrdersHelper
     have_css("[data-id=order-#{order.id}]", text: 'Fulfilled')
   end
 
+  def have_returned_order(order)
+    have_css("[data-id=order-#{order.id}]", text: 'Fulfilled')
+  end
+
   def view_order(order)
     find("[data-id=order-#{order.id}] a", match: :first).click
   end
@@ -20,7 +24,15 @@ module OrdersHelper
   end
 
   def allow_fulfillment
-    have_css('button:not(:disabled)')
+    have_css('button:not(:disabled)', text: 'Fulfill order')
+  end
+
+  def allow_mark_returned
+    have_css('button:not(:disabled)', text: 'Mark order returned')
+  end
+
+  def mark_order_returned
+    click_on(t('orders.show.mark_order_returned'))
   end
 end
 

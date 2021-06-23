@@ -7,6 +7,10 @@
     <div class='w-full text-center p-4 shadow-sm mb-4 text-xl bg-green-200 rounded-md font-semibold text-green-800'>
       <%= t '.order.fulfilled' %>
     </div>
+  <% elsif @order.returned? %>
+    <div class='w-full text-center p-4 shadow-sm mb-4 text-xl bg-pink-600 rounded-md font-semibold text-pink-100'>
+      <%= t '.order.returned' %>
+    </div>
   <% end %>
   <div class='md:w-1/3'>
     <h3 class='text-2xl font-semibold pb-4'><%= t '.ships_to.header' %></h3>
@@ -56,7 +60,11 @@
       </table>
     </div>
 
-    <% if !@order.fulfilled? %>
+    <% if @order.fulfilled? && !@order.returned? && warehouse_employee? %>
+      <%= button_to order_return_path(@order), method: :post, class: "w-full p-4 text-2xl #{return_order_button_class(@order)}", disabled: !@order.fulfilled? do %>
+        <%= t '.mark_order_returned' %>
+      <% end %>
+    <% elsif !@order.fulfilled? && !@order.returned? %>
       <%= button_to order_fulfill_path(@order), method: :post, class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}", disabled: !@order.fulfillable? do %>
         <%= t '.fulfill_order' %>
       <% end %>

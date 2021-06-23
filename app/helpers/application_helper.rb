@@ -19,6 +19,8 @@ module ApplicationHelper
       t('order.fulfilled')
     elsif order.fulfillable?
       t('order.fulfillable')
+    elsif order.returned?
+      t('order.returned')
     else
       t('order.unfulfillable')
     end
@@ -29,13 +31,15 @@ module ApplicationHelper
       'bg-green-200 text-green-800'
     elsif order.fulfillable?
       'bg-yellow-200 text-yellow-800'
+    elsif order.returned?
+      'bg-pink-600 text-pink-100'
     else
       'bg-red-200 text-red-800'
     end
   end
 
   def line_item_fulfillable_class(order, line_item)
-    if !order.fulfilled?
+    if !order.fulfilled? && !order.returned?
       if line_item.fulfillable?
         'bg-green-100 text-green-800'
       else
@@ -47,6 +51,14 @@ module ApplicationHelper
   def fulfill_order_button_class(order)
     if order.fulfillable?
       'bg-teal-600 text-white'
+    else
+      'bg-gray-500 text-gray-300 cursor-not-allowed'
+    end
+  end
+
+  def return_order_button_class(order)
+    if order.fulfilled?
+      'bg-pink-600 text-pink-100'
     else
       'bg-gray-500 text-gray-300 cursor-not-allowed'
     end
