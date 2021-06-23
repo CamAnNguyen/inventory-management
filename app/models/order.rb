@@ -4,8 +4,18 @@ class Order < ApplicationRecord
   has_many :inventories
 
   scope :recent, -> { order(created_at: :desc) }
-  scope :fulfilled, -> { joins(:inventories).group('orders.id') }
   scope :not_fulfilled, -> { left_joins(:inventories).where(inventories: { order_id: nil }) }
+  scope :fulfilled, lambda {
+    joins(:inventories)
+      .group('orders.id')
+      .where(inventories: { status: InventoryStatusChange::STATUSES[:shipped] })
+  }
+  scope :returned, lambda {
+    joins(:inventories)
+      .group('orders.id')
+      .where(inventories: { status: InventoryStatusChange::STATUSES[:returned] })
+  }
+
   scope :fulfillable, lambda {
     not_fulfilled
       .joins(:line_items)
@@ -29,7 +39,25 @@ class Order < ApplicationRecord
   end
 
   def fulfilled?
-    inventories.any?
+    inventory_size = inventories.count
+
+    (
+      !inventory_size.zero? &&
+      inventories
+        .where(status: InventoryStatusChange::STATUSES[:shipped])
+        .count == inventory_size
+    )
+  end
+
+  def returned?
+    inventory_size = inventories.count
+
+    (
+      !inventory_size.zero? &&
+      inventories
+        .where(status: InventoryStatusChange::STATUSES[:returned])
+        .count == inventory_size
+    )
   end
 
   # This method should include one more condition: not_fulfilled (`!fulfilled?`)

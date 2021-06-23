@@ -36,16 +36,29 @@ RSpec.describe Order do
 
   describe '.fulfillable' do
     it 'includes fulfillable order only' do
-      fulfillable_order = Order.create!(ships_to: address)
-      OrderLineItem.create!(order: fulfillable_order, product: product, quantity: 2)
-      OrderLineItem.create!(order: fulfillable_order, product: second_product, quantity: 2)
+      expect(Order.fulfillable).not_to include(second_order)
+      expect(Order.fulfillable).to include(order)
+    end
+  end
 
-      unfulfillable_order = Order.create!(ships_to: address)
-      OrderLineItem.create!(order: unfulfillable_order, product: product, quantity: 2)
-      OrderLineItem.create!(order: unfulfillable_order, product: second_product, quantity: 20)
+  describe '.fulfilled' do
+    it 'includes fulfilled order only' do
+      expect(Order.fulfilled).not_to include(order)
 
-      expect(Order.fulfillable).not_to include(unfulfillable_order)
-      expect(Order.fulfillable).to include(fulfillable_order)
+      FindFulfillableOrder.fulfill_order(employee, order.id)
+
+      expect(Order.fulfilled).to include(order)
+    end
+  end
+
+  describe '.returned' do
+    it 'includes returned order only' do
+      expect(Order.returned).not_to include(order)
+
+      FindFulfillableOrder.fulfill_order(employee, order.id)
+      FindFulfilledOrder.mark_order_returned(employee, order.id)
+
+      expect(Order.returned).to include(order)
     end
   end
 
@@ -71,12 +84,29 @@ RSpec.describe Order do
     end
 
     it 'returns true if is fulfilled' do
-      fulfillable_order = Order.create!(ships_to: address)
-      OrderLineItem.create!(order: fulfillable_order, product: product, quantity: 2)
-      OrderLineItem.create!(order: fulfillable_order, product: second_product, quantity: 2)
-      FindFulfillableOrder.fulfill_order(employee, fulfillable_order.id)
+      expect(order.fulfilled?).to eq(false)
+      FindFulfillableOrder.fulfill_order(employee, order.id)
+      expect(order.fulfilled?).to eq(true)
+    end
+  end
 
-      expect(fulfillable_order.fulfilled?).to eq(true)
+  describe '#returned?' do
+    before do
+      FindFulfillableOrder.fulfill_order(employee, order.id)
+    end
+
+    it 'returns false if is not mark as returned' do
+      expect(order.returned?).to eq(false)
+    end
+
+    it 'returns true if its inventories is mark as returned' do
+      cs_employee = create(:customer_service_employee)
+      line_items = FindFulfilledOrder.mark_order_returned(cs_employee, order.id)
+      expect(line_items.nil?).to eq(true)
+
+      expect(order.returned?).to eq(false)
+      FindFulfilledOrder.mark_order_returned(employee, order.id)
+      expect(order.returned?).to eq(true)
     end
   end
 end
