@@ -15,27 +15,27 @@ module ApplicationHelper
   end
 
   def order_status(order)
-    if order.fulfilled?
-      t('order.fulfilled')
-    elsif order.fulfillable?
-      t('order.fulfillable')
-    elsif order.returned?
-      t('order.returned')
-    else
-      t('order.unfulfillable')
+    %w[fulfilled restocked returned fulfillable].each do |state|
+      return t("order.#{state}") if order.send("#{state}?")
     end
+
+    t('order.unfulfillable')
   end
 
+  ORDER_STATUS_CLASS = {
+    'fulfilled': 'bg-green-200 text-green-800',
+    'restocked': 'bg-blue-600 text-blue-100',
+    'returned': 'bg-pink-600 text-pink-100',
+    'fulfillable': 'bg-yellow-200 text-yellow-800'
+  }.freeze
+
   def order_status_class(order)
-    if order.fulfilled?
-      'bg-green-200 text-green-800'
-    elsif order.fulfillable?
-      'bg-yellow-200 text-yellow-800'
-    elsif order.returned?
-      'bg-pink-600 text-pink-100'
-    else
-      'bg-red-200 text-red-800'
+    %w[fulfilled restocked returned fulfillable].each do |state|
+      return ORDER_STATUS_CLASS[state.to_sym] if order.send("#{state}?")
     end
+
+    # unfulfillable
+    'bg-red-200 text-red-800'
   end
 
   def line_item_fulfillable_class(order, line_item)
@@ -59,6 +59,14 @@ module ApplicationHelper
   def return_order_button_class(order)
     if order.fulfilled?
       'bg-pink-600 text-pink-100'
+    else
+      'bg-gray-500 text-gray-300 cursor-not-allowed'
+    end
+  end
+
+  def restock_order_button_class(order)
+    if order.returned?
+      'bg-teal-600 text-white'
     else
       'bg-gray-500 text-gray-300 cursor-not-allowed'
     end

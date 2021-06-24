@@ -54,7 +54,6 @@ RSpec.describe FindReturnedOrder do
 
     expect(product.on_shelf).to eq(5)
     expect(second_product.on_shelf).to eq(13)
-    expect(order.inventories.count).to eq(7)
 
     FindReturnedOrder.restock_order(employee, second_order.id)
     product.reload
@@ -62,6 +61,5 @@ RSpec.describe FindReturnedOrder do
 
     expect(product.on_shelf).to eq(10)
     expect(second_product.on_shelf).to eq(20)
-    expect(second_order.inventories.count).to eq(12)
   end
 end

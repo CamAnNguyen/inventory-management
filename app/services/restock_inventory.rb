@@ -29,7 +29,6 @@ class RestockInventory
         status_to: :on_shelf,
         actor: employee
       )
-      inventory.update!(status: :on_shelf, order: order)
     end
   end
 end

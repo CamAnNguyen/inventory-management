@@ -12,6 +12,7 @@ class FindReturnedOrder
         order: order
       ).limit(line_item.quantity)
       RestockInventory.run(employee, inventory_items, order)
+      ReceiveProduct.run(employee, line_item.product, line_item.quantity)
     end
   end
   private_class_method :restock

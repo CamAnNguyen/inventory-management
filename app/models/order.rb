@@ -60,6 +60,19 @@ class Order < ApplicationRecord
     )
   end
 
+  def restocked?
+    inventory_size = inventories.count
+
+    !inventory_size.zero? &&
+      inventories
+        .joins('LEFT JOIN inventory_status_changes ON inventory_status_changes.inventory_id = inventories.id')
+        .where(
+          inventory_status_changes: {
+            status_from: InventoryStatusChange::STATUSES[:returned]
+          }
+        ).count == inventory_size
+  end
+
   # This method should include one more condition: not_fulfilled (`!fulfilled?`)
   # Potential bug:
   #   If this method is used for individual order fulfillable checking

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :orders, only: :show do
     resource :fulfill, only: [:create]
     resource :return, only: [:create]
+    resource :restock, only: [:create]
   end
 
   resources :products do

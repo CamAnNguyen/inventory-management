@@ -6,8 +6,6 @@ en:
         header: Fulfillable Orders
       fulfilled_orders:
         header: Fulfilled Orders
-      returned_orders:
-        header: Returned Orders
       receive_product:
         header: Receive New Product
         table:
@@ -17,6 +15,8 @@ en:
           quantity: Receive Quantity
       recent_orders:
         header: Recent Orders
+      returned_orders:
+        header: Returned Orders
       title: Employee Portal
       welcome: Welcome, %{name} - %{role}
   helpers:
@@ -46,6 +46,7 @@ en:
   order:
     fulfillable: Fulfillable
     fulfilled: Fulfilled
+    restocked: Restocked
     returned: Returned
     unfulfillable: Unfulfillable
   orders:
@@ -55,6 +56,7 @@ en:
       order:
         fulfilled: Order has been fulfilled
         header: 'Order ID #%{id}'
+        restocked: Order has been restocked
         returned: Order has been returned
       product_table:
         on_shelf: "%{count} on shelf"
@@ -65,6 +67,7 @@ en:
           quantity: Quantity
       products:
         header: Line Items
+      restock_order: Restock order
       ships_to:
         header: Ships To
     table:

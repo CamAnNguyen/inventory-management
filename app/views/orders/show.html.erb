@@ -7,6 +7,10 @@
     <div class='w-full text-center p-4 shadow-sm mb-4 text-xl bg-green-200 rounded-md font-semibold text-green-800'>
       <%= t '.order.fulfilled' %>
     </div>
+  <% elsif @order.restocked? %>
+    <div class='w-full text-center p-4 shadow-sm mb-4 text-xl bg-blue-200 rounded-md font-semibold text-blue-800'>
+      <%= t '.order.restocked' %>
+    </div>
   <% elsif @order.returned? %>
     <div class='w-full text-center p-4 shadow-sm mb-4 text-xl bg-pink-600 rounded-md font-semibold text-pink-100'>
       <%= t '.order.returned' %>
@@ -60,7 +64,11 @@
       </table>
     </div>
 
-    <% if @order.fulfilled? && !@order.returned? && warehouse_employee? %>
+    <% if @order.returned? && !@order.restocked? && warehouse_employee? %>
+      <%= button_to order_restock_path(@order), method: :post, class: "w-full p-4 text-2xl #{restock_order_button_class(@order)}", disabled: !@order.returned? do %>
+        <%= t '.restock_order' %>
+      <% end %>
+    <% elsif @order.fulfilled? && !@order.returned? && warehouse_employee? %>
       <%= button_to order_return_path(@order), method: :post, class: "w-full p-4 text-2xl #{return_order_button_class(@order)}", disabled: !@order.fulfilled? do %>
         <%= t '.mark_order_returned' %>
       <% end %>

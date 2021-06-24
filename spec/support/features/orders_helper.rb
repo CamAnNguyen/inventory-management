@@ -12,7 +12,11 @@ module OrdersHelper
   end
 
   def have_returned_order(order)
-    have_css("[data-id=order-#{order.id}]", text: 'Fulfilled')
+    have_css("[data-id=order-#{order.id}]", text: 'Returned')
+  end
+
+  def have_restocked_order(order)
+    have_css("[data-id=order-#{order.id}]", text: 'Restocked')
   end
 
   def view_order(order)
@@ -31,8 +35,16 @@ module OrdersHelper
     have_css('button:not(:disabled)', text: 'Mark order returned')
   end
 
+  def allow_restock
+    have_css('button:not(:disabled)', text: 'Restock order')
+  end
+
   def mark_order_returned
     click_on(t('orders.show.mark_order_returned'))
+  end
+
+  def restock_order
+    click_on(t('orders.show.restock_order'))
   end
 end
 
