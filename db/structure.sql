@@ -35,7 +35,8 @@ CREATE TABLE public.addresses (
     street_2 character varying,
     city character varying NOT NULL,
     state character varying NOT NULL,
-    zip character varying NOT NULL
+    zip character varying NOT NULL,
+    fixed boolean
 );
 
 
@@ -535,6 +536,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210618045952'),
 ('20210619051717'),
 ('20210619075525'),
-('20210619123625');
+('20210619123625'),
+('20210624094901');
 
 

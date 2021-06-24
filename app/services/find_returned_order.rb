@@ -16,4 +16,14 @@ class FindReturnedOrder
     end
   end
   private_class_method :restock
+
+  def self.fix_address(employee, address_id, new_address)
+    return nil if Order.returned.where(ships_to_id: address_id).empty? ||
+                  !employee.instance_of?(CustomerServiceEmployee)
+
+    address = Address.find(address_id)
+    return nil if address.nil?
+
+    FixAddress.run(employee, address, new_address)
+  end
 end
