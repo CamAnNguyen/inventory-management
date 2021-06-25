@@ -71,4 +71,12 @@ module ApplicationHelper
       'bg-gray-500 text-gray-300 cursor-not-allowed'
     end
   end
+
+  def fix_address_button_class(fixable)
+    if fixable
+      'bg-purple-500 hover:bg-purple-400 text-white '
+    else
+      'bg-gray-500 text-gray-300 cursor-not-allowed'
+    end
+  end
 end

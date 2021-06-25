@@ -1,7 +1,17 @@
 ---
 en:
+  addresses:
+    issues:
+      address: Address
+      customer: Customer
+    show:
+      address:
+        header: 'Address ID #%{id}'
+      fix_address: Fix Address
   employees:
     index:
+      customer_issues:
+        header: Customers with issues
       fulfillable_orders:
         header: Fulfillable Orders
       fulfilled_orders:

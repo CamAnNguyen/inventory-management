@@ -1,0 +1,33 @@
+<table class='generic-table zebra'>
+  <thead>
+    <tr>
+      <th><%= t '.customer' %></th>
+      <th><%= t '.address' %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% addresses.each do |address| %>
+      <tr data-id='address-<%= address.id %>'>
+        <td>
+          <div>
+            <%= link_to address_path(address) do %>
+              <%= address.recipient %>
+            <% end %>
+          </div>
+        </td>
+        <td>
+          <div class='metadata'>
+            <%= address.street_1 %>
+          </div>
+          <div class='metadata'>
+            <%= address.street_2 %>
+          </div>
+          <div class='metadata'>
+            <%= "#{address.city}, #{address.state} #{address.zip}" %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
