@@ -102,5 +102,4 @@ RSpec.describe FixAddress do
     expect(address.state).to eq(new_address[:state])
     expect(address.zip).to eq(new_address[:zip])
   end
-
 end
